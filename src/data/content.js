@@ -20,7 +20,7 @@ export const profile = {
   available: true,
   availabilityText: "Open to Associate Software Engineer roles",
   tagline:
-    "I build scalable, AI-integrated platforms - from monorepo architectures to cloud deployments - with clean code and a focus on great user experience.",
+    "I build scalable, AI-integrated platforms - from monorepo and microservice architectures to cloud deployments - with clean code and a focus on great user experience.",
   summary:
     "Fourth-year BSc (Hons) Software Engineering student at the University of Kelaniya with a strong command of modern ecosystems including React, Next.js, NestJS, TypeScript and Node.js. I have recent hands-on industry experience building AI-integrated platforms, cloud deployments, and monorepo & microservice architectures - and I love turning complex problems into clean, maintainable systems.",
   cv: "/cv.pdf",
