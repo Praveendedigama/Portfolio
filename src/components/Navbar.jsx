@@ -1,65 +1,154 @@
-import { useEffect, useState } from 'react'
-
-const links = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#contact', label: 'Contact' },
-]
+import { useEffect, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { LuMenu, LuX, LuDownload } from "react-icons/lu";
+import { navLinks, profile } from "../data/content.js";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
-  const cvHref = '/cv.pdf'
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("#home");
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Shrink/blur the bar after scrolling a little
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Highlight the section currently in view
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.querySelector(l.href))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <nav className={`sticky top-0 z-50 transition bg-slate-950/70 ${scrolled ? 'backdrop-blur supports-[backdrop-filter]:bg-slate-950/60 ring-1 ring-white/10' : ''}`}>
-      <div className="container-px">
-        <div className="flex h-16 items-center justify-between">
-          <a href="#home" className="flex items-center gap-2">
-            {/* <div className="h-8 w-8 rounded bg-sky-500" /> */}
-            <span className="font-semibold font-['Poppins'] tracking-wide" >Praveen Dedigama</span>
-          </a>
-          <div className="hidden md:flex items-center gap-6">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-white/80 hover:text-white transition">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <nav
+        className={`transition-all duration-300 ${
+          scrolled ? "glass shadow-lg shadow-black/20" : "bg-transparent"
+        }`}
+      >
+        <div className="container-px">
+          <div className="flex h-16 items-center justify-between">
+            <a
+              href="#home"
+              className="group flex items-center gap-2 font-display text-base font-semibold"
+            >
+              <span className="hidden text-white sm:inline">
+                Praveen
+                <span className="text-accent-cyan">.dev</span>
+              </span>
+            </a>
+
+            {/* Desktop links */}
+            <div className="hidden items-center gap-1 md:flex">
+              {navLinks.map((l) => {
+                const isActive = active === l.href;
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className={`relative rounded-full px-3.5 py-2 text-sm transition-colors ${
+                      isActive ? "text-white" : "text-white/60 hover:text-white"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-white/10 ring-1 ring-white/10"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {l.label}
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={profile.cv}
+                download="Praveen-Dedigama-CV.pdf"
+                className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-base transition hover:bg-white/90 sm:inline-flex"
+              >
+                <LuDownload className="h-4 w-4" />
+                Resume
+              </a>
+
+              <button
+                className="inline-flex items-center justify-center rounded-lg p-2 text-white/80 ring-1 ring-white/10 transition hover:bg-white/10 md:hidden"
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+              >
+                {open ? <LuX className="h-5 w-5" /> : <LuMenu className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll progress bar */}
+        <motion.div
+          className="h-0.5 origin-left bg-linear-to-r from-accent-cyan via-(--color-accent-indigo) to-accent-fuchsia"
+          style={{ scaleX: progress }}
+        />
+      </nav>
+
+      {/* Mobile menu */}
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass mx-3 mt-2 rounded-2xl p-3 md:hidden"
+        >
+          <div className="grid gap-1">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`rounded-xl px-4 py-2.5 text-sm transition ${
+                  active === l.href
+                    ? "bg-white/10 text-white"
+                    : "text-white/70 hover:bg-white/5 hover:text-white"
+                }`}
+              >
                 {l.label}
               </a>
             ))}
-            <a href={cvHref} download="Praveen-Dedigama-CV.pdf" className="inline-flex items-center rounded-md bg-sky-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-400">
-              Download CV
+            <a
+              href={profile.cv}
+              download="Praveen-Dedigama-CV.pdf"
+              onClick={() => setOpen(false)}
+              className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-base"
+            >
+              <LuDownload className="h-4 w-4" />
+              Download Resume
             </a>
           </div>
-          <button className="md:hidden inline-flex items-center justify-center rounded border border-white/15 p-2 text-white/80 hover:text-white hover:bg-white/10" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-              <path fillRule="evenodd" d="M3.75 5.25a.75.75 0 01.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75zm0 6.75c0-.414.336-.75.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75zm.75 6a.75.75 0 000 1.5h15a.75.75 0 000-1.5h-15z" clipRule="evenodd" />
-            </svg>
-          </button>
-        </div>
-        {open && (
-          <div className="md:hidden pb-4">
-            <div className="grid gap-2">
-              {links.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="rounded px-3 py-2 text-white/90 hover:bg-white/10">
-                  {l.label}
-                </a>
-              ))}
-              <a href={cvHref} download="Praveen-Dedigama-CV.pdf" onClick={() => setOpen(false)} className="rounded px-3 py-2 text-white/90 hover:bg-white/10">
-                Download CV
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  )
+        </motion.div>
+      )}
+    </header>
+  );
 }
-
-
