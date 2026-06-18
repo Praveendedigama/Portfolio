@@ -23,14 +23,14 @@ function CertCard({ cert, index, onZoom }) {
 
   return (
     <Reveal delay={index * 0.06} className="glass glow-ring group overflow-hidden rounded-2xl">
-      <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+      <div className="relative aspect-[4/3] overflow-hidden bg-white">
         {hasImage ? (
           <img
             src={cert.image}
             alt={`${cert.title} certificate`}
             loading="lazy"
             onError={() => setErrored(true)}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <Fallback title={cert.title} />

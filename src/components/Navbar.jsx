@@ -55,12 +55,9 @@ export default function Navbar() {
               href="#home"
               className="group flex items-center gap-2 font-display text-base font-semibold"
             >
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--color-accent-cyan)] to-[var(--color-accent-fuchsia)] text-sm font-bold text-[var(--color-base)]">
-                P
-              </span>
               <span className="hidden text-white sm:inline">
                 Praveen
-                <span className="text-[var(--color-accent-cyan)]">.dev</span>
+                <span className="text-accent-cyan">.dev</span>
               </span>
             </a>
 
@@ -93,7 +90,7 @@ export default function Navbar() {
               <a
                 href={profile.cv}
                 download="Praveen-Dedigama-CV.pdf"
-                className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[var(--color-base)] transition hover:bg-white/90 sm:inline-flex"
+                className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-base transition hover:bg-white/90 sm:inline-flex"
               >
                 <LuDownload className="h-4 w-4" />
                 Resume
@@ -113,7 +110,7 @@ export default function Navbar() {
 
         {/* Scroll progress bar */}
         <motion.div
-          className="h-0.5 origin-left bg-gradient-to-r from-[var(--color-accent-cyan)] via-[var(--color-accent-indigo)] to-[var(--color-accent-fuchsia)]"
+          className="h-0.5 origin-left bg-linear-to-r from-accent-cyan via-(--color-accent-indigo) to-accent-fuchsia"
           style={{ scaleX: progress }}
         />
       </nav>
@@ -144,7 +141,7 @@ export default function Navbar() {
               href={profile.cv}
               download="Praveen-Dedigama-CV.pdf"
               onClick={() => setOpen(false)}
-              className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-base)]"
+              className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-base"
             >
               <LuDownload className="h-4 w-4" />
               Download Resume

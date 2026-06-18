@@ -12,9 +12,6 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-sm">
             <a href="#home" className="flex items-center gap-2 font-display text-lg font-semibold">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--color-accent-cyan)] to-[var(--color-accent-fuchsia)] text-sm font-bold text-[var(--color-base)]">
-                P
-              </span>
               {profile.name}
             </a>
             <p className="mt-3 text-sm text-white/55">
@@ -59,7 +56,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 sm:flex-row">
           <p className="text-xs text-white/45">
-            © {new Date().getFullYear()} {profile.name}. Built with React, Tailwind & Framer Motion.
+            © {new Date().getFullYear()} {profile.name}.
           </p>
           <button
             onClick={scrollTop}

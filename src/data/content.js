@@ -25,6 +25,7 @@ export const profile = {
     "Fourth-year BSc (Hons) Software Engineering student at the University of Kelaniya with a strong command of modern ecosystems including React, Next.js, NestJS, TypeScript and Node.js. I have recent hands-on industry experience building AI-integrated platforms, cloud deployments, and monorepo & microservice architectures - and I love turning complex problems into clean, maintainable systems.",
   cv: "/cv.pdf",
   photo: "/profile.jpg",
+  photo2: "/myimage2.jpeg",
 };
 
 export const stats = [
@@ -212,8 +213,8 @@ export const projects = [
       "A complete full-stack e-commerce platform with responsive UI, shopping cart, user authentication, and an admin dashboard for product and order management. Secure login and product APIs built with Node.js/Express enable real-time updates.",
     tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
     live: "https://cbc-beauty-frontend.vercel.app/",
-    repo: "https://github.com/Praveendedigama",
-    repoBackend: "https://github.com/Praveendedigama",
+    repo: "https://github.com/Praveendedigama/cbc-beauty-frontend.git",
+    repoBackend: "https://github.com/Praveendedigama/cbc-beauty-backend.git",
   },
   {
     title: "Fuel Management System",
@@ -235,29 +236,29 @@ export const certifications = [
     title: "Full-Stack Web Development (MERN)",
     type: "Participation",
     issuer: "MERN Stack Program",
-    image: "/certs/mern-participation.png",
-    link: "#",
+    image: "/MERN_Participation.png",
+    link: "https://certificate.skyrek.com/certifcates/participation/mudXrWf9kuBI",
   },
   {
     title: "Full-Stack Web Development (MERN)",
     type: "Project Completion",
     issuer: "MERN Stack Program",
-    image: "/certs/mern-completion.png",
-    link: "#",
+    image: "/MERN_Completion.png",
+    link: "https://certificate.skyrek.com/certifcates/completion/xqrSGDOnYV62",
   },
   {
     title: "Programming with JavaScript",
     type: "Course",
     issuer: "Meta · Coursera",
-    image: "/certs/meta-javascript.png",
-    link: "#",
+    image: "/Programming_with_JavaScript.png",
+    link: "https://www.coursera.org/account/accomplishments/verify/5Z1XDJ064B7B",
   },
   {
     title: "Introduction to DevOps",
     type: "Course",
     issuer: "IBM · Coursera",
-    image: "/certs/ibm-devops.png",
-    link: "#",
+    image: "/Devops_Intro.png",
+    link: "https://www.coursera.org/account/accomplishments/verify/39PYTZHZAAGU",
   },
 ];
 

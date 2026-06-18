@@ -22,7 +22,7 @@ export default function About() {
             <div className="glow-ring mx-auto max-w-sm rounded-3xl">
               <div className="overflow-hidden rounded-3xl ring-1 ring-white/10">
                 <img
-                  src={profile.photo}
+                  src={profile.photo2 || profile.photo}
                   alt={`${profile.name}`}
                   className="aspect-square w-full object-cover"
                   loading="lazy"
@@ -52,7 +52,7 @@ export default function About() {
                   key={label}
                   className="glass flex items-center gap-3 rounded-2xl px-4 py-3"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/5 text-[var(--color-accent-cyan)]">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-cyan">
                     <Icon className="h-5 w-5" />
                   </span>
                   <div className="min-w-0">
@@ -69,7 +69,7 @@ export default function About() {
               <a
                 href={profile.cv}
                 download="Praveen-Dedigama-CV.pdf"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[var(--color-base)] transition hover:bg-white/90"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-base transition hover:bg-white/90"
               >
                 <LuFileText className="h-4 w-4" />
                 Download Resume
